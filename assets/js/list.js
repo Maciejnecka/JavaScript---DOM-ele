@@ -1,5 +1,4 @@
 'use strict';
-
 const list = [
   {
     id: 1,
@@ -44,3 +43,41 @@ const list = [
     link: '#Osadzanie',
   },
 ];
+
+const articleList = document.querySelector('.article__list');
+const newUl = document.createElement('ul');
+articleList.appendChild(newUl);
+
+list.forEach((item) => {
+  if (item.parentId === null) {
+    const newLi = document.createElement('li');
+    newLi.dataset.id = item.id;
+    const newA = document.createElement('a');
+    newA.textContent = item.text;
+    newA.setAttribute('href', item.link);
+    newUl.appendChild(newLi);
+    newLi.appendChild(newA);
+  }
+});
+
+const liElements = articleList.querySelectorAll('li');
+
+liElements.forEach((liEle) => {
+  const parentId = Number(liEle.getAttribute('data-id'));
+  const childrenId = list.filter(function (element) {
+    return element.parentId === parentId;
+  });
+  if (childrenId.length !== 0) {
+    const ulSecondParent = document.createElement('ul');
+    liEle.appendChild(ulSecondParent);
+
+    childrenId.forEach((item) => {
+      const childLiElement = document.createElement('li');
+      const childAElement = document.createElement('a');
+      childAElement.textContent = item.text;
+      childAElement.setAttribute('href', item.link);
+      ulSecondParent.appendChild(childLiElement);
+      childLiElement.appendChild(childAElement);
+    });
+  }
+});
