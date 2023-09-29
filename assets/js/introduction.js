@@ -13,7 +13,6 @@ tooltips.forEach((tooltips) => {
   const spanElement = createTooltipText(tooltipType, tooltipContent);
 
   if (tooltipType === 'image') {
-    // createTooptipImage
     const imgElement = createTopptipImage(linkSrc);
     spanElement.textContent = '';
     spanElement.appendChild(imgElement);
