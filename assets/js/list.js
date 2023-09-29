@@ -50,13 +50,7 @@ articleList.appendChild(newUl);
 
 list.forEach((item) => {
   if (item.parentId === null) {
-    const newLi = document.createElement('li');
-    newLi.dataset.id = item.id;
-    const newA = document.createElement('a');
-    newA.textContent = item.text;
-    newA.setAttribute('href', item.link);
-    newUl.appendChild(newLi);
-    newLi.appendChild(newA);
+    createListItem(item, newUl);
   }
 });
 
@@ -72,12 +66,19 @@ liElements.forEach((liEle) => {
     liEle.appendChild(ulSecondParent);
 
     childrenId.forEach((item) => {
-      const childLiElement = document.createElement('li');
-      const childAElement = document.createElement('a');
-      childAElement.textContent = item.text;
-      childAElement.setAttribute('href', item.link);
-      ulSecondParent.appendChild(childLiElement);
-      childLiElement.appendChild(childAElement);
+      createListItem(item, ulSecondParent);
     });
   }
 });
+
+function createListItem(item, parentElement) {
+  const newLi = document.createElement('li');
+  const newA = document.createElement('a');
+
+  newLi.dataset.id = item.id;
+  newA.textContent = item.text;
+  newA.setAttribute('href', item.link);
+
+  parentElement.appendChild(newLi);
+  newLi.appendChild(newA);
+}
